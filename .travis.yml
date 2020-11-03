@@ -1,0 +1,36 @@
+ node_js: stable
+    # Travis-CI Caching
+    cache:
+      directories:
+        - node_modules
+    # S: Build Lifecycle
+    install:
+      - npm install
+    
+    before_script:
+     # - npm install -g gulp
+    
+    
+    script:
+      - hexo g
+    
+    
+    after_script:
+      - cd ./public
+      - git init
+      - git config user.name "linkzhang"
+      - git config user.email "afxasura@gmail.com"
+      - git add .
+      - git commit -m "Update site"
+      - git push --force --quiet "https://LinkZhang:${blog_coding_token}@${CODING_REF}" master:master
+      - git push --force --quiet "https://${blog_token}@${GH_REF}" master:master
+      
+    # E: Build LifeCycle
+    
+    branches:
+      only:
+        - hexo
+    env:
+     global:
+       - GH_REF: github.com/LinkZhang/LinkZhang.github.io.git
+       - CODING_REF: git.coding.net/LinkZhang/LinkZhang.coding.me.git
