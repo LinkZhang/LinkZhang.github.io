@@ -54,10 +54,25 @@ index_generator:
   per_page: 10
   order_by: -date
   
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+
+
 # Category & Tag
 default_category: uncategorized
 category_map:
 tag_map:
+
+
+symbols_count_time:
+	symbols: true
+	time: true
+	total_symbols: true
+	total_time: true
 
 
 post_end_tag:
