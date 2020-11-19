@@ -100,6 +100,5 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/linkzhang/Linkzhang.github.io.git
+  repository: git@github.com:linkzhang/Linkzhang.github.io.git
   branch: master
-
