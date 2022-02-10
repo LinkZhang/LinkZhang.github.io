@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linkzhang.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Android Studio使用Gradle进行构建，不仅可以非常方便的管理依赖，还可以自定义一些实用的功能,例如多渠道打包，自动签名apk等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle常用配置">
+<meta property="og:url" content="https://linkzhang.com/2016/09/12/android-gradle-config/index.html">
+<meta property="og:site_name" content="LinkZhang&#39;s Website">
+<meta property="og:description" content="Android Studio使用Gradle进行构建，不仅可以非常方便的管理依赖，还可以自定义一些实用的功能,例如多渠道打包，自动签名apk等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-09-12T21:22:00.000Z">
+<meta property="article:modified_time" content="2022-02-10T02:53:58.318Z">
+<meta property="article:author" content="LinkZhang">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linkzhang.com/2016/09/12/android-gradle-config/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://linkzhang.com/2016/09/12/android-gradle-config/","path":"2016/09/12/android-gradle-config/","title":"Gradle常用配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Gradle常用配置 | LinkZhang's Website</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="LinkZhang's Website" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LinkZhang's Website</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">多渠道打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%90%8Dapk"><span class="nav-number">2.</span> <span class="nav-text">自动签名apk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7%E8%87%AA%E5%A2%9E"><span class="nav-number">3.</span> <span class="nav-text">版本号自增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89apk%E5%90%8D%E7%A7%B0"><span class="nav-number">4.</span> <span class="nav-text">自定义apk名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">6.</span> <span class="nav-text">不足</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%92%8C%E6%84%9F%E8%B0%A2"><span class="nav-number">7.</span> <span class="nav-text">参考和感谢</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LinkZhang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">LinkZhang</p>
+  <div class="site-description" itemprop="description">十分冷淡存知己，一曲微茫度此生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linkzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linkzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:afxasura@gmail.com" title="E-Mail → mailto:afxasura@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anrrew" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anrrew" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/LinkZhang01" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;LinkZhang01" rel="noopener" target="_blank"><i class="fa fa-user-circle fa-fw"></i>知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://linkzhang.com/2016/09/12/android-gradle-config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="LinkZhang">
+      <meta itemprop="description" content="十分冷淡存知己，一曲微茫度此生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LinkZhang's Website">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Gradle常用配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-09-12 21:22:00" itemprop="dateCreated datePublished" datetime="2016-09-12T21:22:00+00:00">2016-09-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-10 02:53:58" itemprop="dateModified" datetime="2022-02-10T02:53:58+00:00">2022-02-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Android Studio使用Gradle进行构建，不仅可以非常方便的管理依赖，还可以自定义一些实用的功能,例如多渠道打包，自动签名apk等。</p>
+<span id="more"></span>
+
+<h2 id="多渠道打包"><a href="#多渠道打包" class="headerlink" title="多渠道打包"></a>多渠道打包</h2><p>上线一款app后需要统计分析各个渠道的使用数据，这就需要对渠道进行标示，这里以友盟统计为例</p>
+<ul>
+<li>在AndroidManifest中加入占位符<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">&quot;UMENG_CHANNEL&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:value</span>=<span class="string">&quot;$&#123;UMENG_CHANNEL_VALUE&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>在module的build.gradle中加入<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">&quot;com.linkzhang.gradlesample&quot;</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">23</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">&quot;1.0&quot;</span></span><br><span class="line">        manifestPlaceholders = [UMENG_CHANNEL_VALUE: <span class="string">&quot;example&quot;</span>]<span class="comment">//默认渠道</span></span><br><span class="line">        flavorDimensions <span class="string">&quot;default&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//自动多渠道打包</span></span><br><span class="line">    productFlavors &#123;</span><br><span class="line">       xiaomi &#123;&#125;</span><br><span class="line">       _360 &#123;&#125;</span><br><span class="line">       baidu &#123;&#125;</span><br><span class="line">       wandoujia &#123;&#125;</span><br><span class="line">       <span class="comment">//...添加其它渠道</span></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    productFlavors.all &#123;</span><br><span class="line">        flavor -&gt; flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="自动签名apk"><a href="#自动签名apk" class="headerlink" title="自动签名apk"></a>自动签名apk</h2><p>使用命令行进行打包，需要读取签名配置并自动对apk进行签名</p>
+<ul>
+<li>在module的根目录下新建signing.properties文件<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">STORE_FILE = keystore.jks</span><br><span class="line">STORE_PASSWORD = <span class="number">123456</span></span><br><span class="line">KEY_ALIAS = example</span><br><span class="line">KEY_PASSWORD = <span class="number">123456</span></span><br></pre></td></tr></table></figure></li>
+<li>在module的build.gradle中创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">      signingConfigs &#123;</span><br><span class="line">          debug &#123;</span><br><span class="line"></span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          release &#123;</span><br><span class="line">              storeFile</span><br><span class="line">              storePassword</span><br><span class="line">              keyAlias</span><br><span class="line">              keyPassword</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>读取配置文件</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  signingConfigs &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        release &#123;</span><br><span class="line">            storeFile</span><br><span class="line">            storePassword</span><br><span class="line">            keyAlias</span><br><span class="line">            keyPassword</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getSigningProperties()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取签名配置文件</span></span><br><span class="line"><span class="function">def <span class="title">getSigningProperties</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    def propFile = file(<span class="string">&#x27;signing.properties&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (propFile.canRead())&#123;</span><br><span class="line">        Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">        props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line">        <span class="keyword">if</span> (props!=<span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;STORE_FILE&#x27;</span>) &amp;&amp; props.containsKey(<span class="string">&#x27;STORE_PASSWORD&#x27;</span>) &amp;&amp;</span><br><span class="line">                props.containsKey(<span class="string">&#x27;KEY_ALIAS&#x27;</span>) &amp;&amp; props.containsKey(<span class="string">&#x27;KEY_PASSWORD&#x27;</span>)) &#123;</span><br><span class="line">            android.signingConfigs.release.storeFile = file(props[<span class="string">&#x27;STORE_FILE&#x27;</span>])</span><br><span class="line">            android.signingConfigs.release.storePassword = props[<span class="string">&#x27;STORE_PASSWORD&#x27;</span>]</span><br><span class="line">            android.signingConfigs.release.keyAlias = props[<span class="string">&#x27;KEY_ALIAS&#x27;</span>]</span><br><span class="line">            android.signingConfigs.release.keyPassword = props[<span class="string">&#x27;KEY_PASSWORD&#x27;</span>]</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            println <span class="string">&#x27;signing.properties found but some entries are missing&#x27;</span></span><br><span class="line">            android.buildTypes.release.signingConfig = <span class="keyword">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        println <span class="string">&#x27;signing.properties not found&#x27;</span></span><br><span class="line">        android.buildTypes.release.signingConfig = <span class="keyword">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更改release设置</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">true</span>  <span class="comment">//开启代码混淆</span></span><br><span class="line">            zipAlignEnabled <span class="keyword">true</span></span><br><span class="line">            shrinkResources <span class="keyword">true</span>    <span class="comment">// 移除无用的resource文件</span></span><br><span class="line">            signingConfig signingConfigs.release</span><br><span class="line">            <span class="function">proguardFiles <span class="title">getDefaultProguardFile</span><span class="params">(<span class="string">&#x27;proguard-android.txt&#x27;</span>)</span>, &#x27;proguard-rules.pro&#x27;</span></span><br><span class="line"><span class="function">        &#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="版本号自增"><a href="#版本号自增" class="headerlink" title="版本号自增"></a>版本号自增</h2><p>每次编译release版本时，版本号自动增加</p>
+<ul>
+<li><p>在module的根目录下新建version.properties文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VERSION_CODE&#x3D;1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读取版本号</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">getVersionCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    def versionFile = file(<span class="string">&#x27;version.properties&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (versionFile.canRead())&#123;</span><br><span class="line">        Properties versionProps = <span class="keyword">new</span> Properties()</span><br><span class="line">        versionProps.load(<span class="keyword">new</span> FileInputStream(versionFile))</span><br><span class="line">        def versionCode = versionProps[<span class="string">&#x27;VERSION_CODE&#x27;</span>].toInteger()</span><br><span class="line">        def runTasks = gradle.startParameter.taskNames</span><br><span class="line">        <span class="comment">//仅在assembleRelease任务增加版本号</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&#x27;assembleRelease&#x27;</span> in runTasks) &#123;</span><br><span class="line">            versionProps[<span class="string">&#x27;VERSION_CODE&#x27;</span>] = (++versionCode).toString()</span><br><span class="line">            versionProps.store(versionFile.newWriter(), <span class="keyword">null</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> versionCode</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> GradleException(<span class="string">&quot;Could not find version.properties!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改defaultConfig</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    def currentVersionCode = getVersionCode()</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">&quot;com.linkzhang.gradlesample&quot;</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">23</span></span><br><span class="line">        versionCode currentVersionCode</span><br><span class="line">        versionName <span class="string">&quot;1.0&quot;</span></span><br><span class="line">        manifestPlaceholders = [UMENG_CHANNEL_VALUE: <span class="string">&quot;example&quot;</span>]<span class="comment">//默认渠道</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义apk名称"><a href="#自定义apk名称" class="headerlink" title="自定义apk名称"></a>自定义apk名称</h2><p>导出的apk以app名_版本号_打包时间_渠道名_release.apk格式命名</p>
+<ul>
+<li>获取app名称和当前时间</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前系统时间</span></span><br><span class="line"><span class="function">def <span class="keyword">static</span> <span class="title">releaseTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date().format(<span class="string">&quot;yyyy-MM-dd&quot;</span>, TimeZone.getTimeZone(<span class="string">&quot;UTC&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取程序名称</span></span><br><span class="line"><span class="function">def <span class="keyword">static</span> <span class="title">getProductName</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;gradlesample&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>替换文件名</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    buildType &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            <span class="comment">//修改生成的apk名字，格式为 app名_版本号_打包时间_渠道名_release.apk</span></span><br><span class="line">            applicationVariants.all &#123; variant -&gt;</span><br><span class="line">                variant.outputs.all &#123; output -&gt;</span><br><span class="line">                     def channel = variant.getMergedFlavor().getManifestPlaceholders().get(<span class="string">&#x27;UMENG_CHANNEL_VALUE&#x27;</span>);</span><br><span class="line">                    <span class="keyword">if</span> (variant.buildType.name == <span class="string">&#x27;release&#x27;</span>)) &#123;</span><br><span class="line">                        outputFileName = getProductName() + <span class="string">&quot;_v&quot;</span>+defaultConfig.versionName+<span class="string">&quot;_&quot;</span>+releaseTime()+<span class="string">&quot;_&quot;</span>+channel + <span class="string">&quot;_&quot;</span>+variant.buildType.name+”.apk<span class="string">&quot;                    </span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a target="_blank" rel="noopener" href="https://github.com/LinkZhang/GradleSample">完整代码</a></p>
+<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>每次新建项目都要复制一份，准备写成Gradle插件发布到maven这样就能很方便的引用了</p>
+<h2 id="参考和感谢"><a href="#参考和感谢" class="headerlink" title="参考和感谢"></a>参考和感谢</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://unclechen.github.io/2015/10/22/Android%20Studio%20Gradle%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%A4%9A%E6%B8%A0%E9%81%93%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85+%E7%89%88%E6%9C%AC%E5%8F%B7%E7%AE%A1%E7%90%86/">Android Studio Gradle实践之多渠道自动化打包+版本号管理</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/e78cfc848d24">使用 Xcode 和 Android Studio 管理 iOS 和 Android 项目版本</a></li>
+<li><a target="_blank" rel="noopener" href="http://stormzhang.com/devtools/2015/01/15/android-studio-tutorial6/">Android Studio系列教程六–Gradle多渠道打包</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>LinkZhang
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://linkzhang.com/2016/09/12/android-gradle-config/" title="Gradle常用配置">https://linkzhang.com/2016/09/12/android-gradle-config/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/08/18/move_eclipse_project_to_android_studio/" rel="prev" title="从Eclipse迁移到Android Studio，并打包指定文件到jar">
+                  <i class="fa fa-chevron-left"></i> 从Eclipse迁移到Android Studio，并打包指定文件到jar
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/10/02/android-studio-plugins/" rel="next" title="Android Studio 常用插件">
+                  Android Studio 常用插件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LinkZhang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">19k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">17 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

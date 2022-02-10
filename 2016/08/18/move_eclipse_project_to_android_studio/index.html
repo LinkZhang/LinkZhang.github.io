@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linkzhang.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="近期在维护一些老代码，是使用Eclipse开发的，我想用过Android Studio的人，再回去用Eclipse是无比难受的，所以趁着周末，赶紧把代码迁移到Android Studio。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Eclipse迁移到Android Studio，并打包指定文件到jar">
+<meta property="og:url" content="https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/index.html">
+<meta property="og:site_name" content="LinkZhang&#39;s Website">
+<meta property="og:description" content="近期在维护一些老代码，是使用Eclipse开发的，我想用过Android Studio的人，再回去用Eclipse是无比难受的，所以趁着周末，赶紧把代码迁移到Android Studio。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-08-18T21:54:00.000Z">
+<meta property="article:modified_time" content="2022-02-10T02:53:58.318Z">
+<meta property="article:author" content="LinkZhang">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/","path":"2016/08/18/move_eclipse_project_to_android_studio/","title":"从Eclipse迁移到Android Studio，并打包指定文件到jar"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>从Eclipse迁移到Android Studio，并打包指定文件到jar | LinkZhang's Website</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="LinkZhang's Website" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">LinkZhang's Website</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">迁移步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%E5%88%B0jar%E4%B8%AD"><span class="nav-number">2.</span> <span class="nav-text">打包指定文件到jar中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">问题和解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEAndroid-NDK"><span class="nav-number">3.0.1.</span> <span class="nav-text">配置Android NDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-12-0-Error-NDK-integration-is-deprecated-in-the-current-plugin"><span class="nav-number">3.0.2.</span> <span class="nav-text">Error:(12, 0) Error: NDK integration is deprecated in the current plugin.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-2-18-string-No-such-file-or-directory"><span class="nav-number">3.0.3.</span> <span class="nav-text">Error:(2, 18) string: No such file or directory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Duplicate-files-copied-in-APK-META-INF-LICENSE-txt"><span class="nav-number">3.0.4.</span> <span class="nav-text">Error:Duplicate files copied in APK META-INF&#x2F;LICENSE.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-17-28-%E9%94%99%E8%AF%AF-%E7%A8%8B%E5%BA%8F%E5%8C%85org-apache-http-util%E4%B8%8D%E5%AD%98%E5%9C%A8"><span class="nav-number">3.0.5.</span> <span class="nav-text">Error:(17, 28) 错误: 程序包org.apache.http.util不存在</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LinkZhang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">LinkZhang</p>
+  <div class="site-description" itemprop="description">十分冷淡存知己，一曲微茫度此生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linkzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linkzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:afxasura@gmail.com" title="E-Mail → mailto:afxasura@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/anrrew" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;anrrew" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/LinkZhang01" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;LinkZhang01" rel="noopener" target="_blank"><i class="fa fa-user-circle fa-fw"></i>知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="LinkZhang">
+      <meta itemprop="description" content="十分冷淡存知己，一曲微茫度此生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LinkZhang's Website">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从Eclipse迁移到Android Studio，并打包指定文件到jar
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-08-18 21:54:00" itemprop="dateCreated datePublished" datetime="2016-08-18T21:54:00+00:00">2016-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-10 02:53:58" itemprop="dateModified" datetime="2022-02-10T02:53:58+00:00">2022-02-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>近期在维护一些老代码，是使用Eclipse开发的，我想用过Android Studio的人，再回去用Eclipse是无比难受的，所以趁着周末，赶紧把代码迁移到Android Studio。</p>
+<span id="more"></span>
+
+<h1 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h1><ol>
+<li>打开Android Studio选择Import Project(Eclipse ADT, Gradle,etc.)</li>
+<li>选择Eclips项目AndroidManifest.xml文件所在的目录，单击确定</li>
+<li>选择保存转换后项目的路径</li>
+<li>后面，默认即可，如果项目依赖其它项目，会一同导入。</li>
+<li>稍等一会，项目就导入完毕</li>
+</ol>
+<h1 id="打包指定文件到jar中"><a href="#打包指定文件到jar中" class="headerlink" title="打包指定文件到jar中"></a>打包指定文件到jar中</h1><p>经常需要把项目打包成jar,以供其它程序使用,Eclipse导出jar非常方便，Android Studio需要在module的build.gradle中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">android&#123;</span><br><span class="line">......</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">......</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;打包之前，删除以前的文件</span><br><span class="line">task clearJar(type: Delete) &#123;</span><br><span class="line">    delete &#39;build&#x2F;libs&#x2F;test.jar&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;打包生成test.jar</span><br><span class="line">task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) &#123;</span><br><span class="line">    &#x2F;&#x2F;指定生成的jar名</span><br><span class="line">    baseName &#39;test&#39;</span><br><span class="line">    &#x2F;&#x2F;从哪里打包class文件,可以指定文件和目录</span><br><span class="line">    from(&#39;build&#x2F;intermediates&#x2F;classes&#x2F;debug&#x2F;com&#x2F;example&#x2F;test&#x2F;&#39;)</span><br><span class="line">    &#x2F;&#x2F;打包到jar后的目录结构</span><br><span class="line">    into(&#39;com&#x2F;example&#x2F;test&#x2F;&#39;)</span><br><span class="line">    &#x2F;&#x2F;去掉不需要打包的目录和文件</span><br><span class="line">    exclude &#39;META-INF&#x2F;LICENSE.txt&#39;</span><br><span class="line">    exclude &#39;META-INF&#x2F;NOTICE.txt&#39;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeJar.dependsOn(clearJar,build)</span><br></pre></td></tr></table></figure>
+<p>在自带命令行下运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle makejar</span><br></pre></td></tr></table></figure>
+<p>即可生成需要的jar包</p>
+<h1 id="问题和解决方法"><a href="#问题和解决方法" class="headerlink" title="问题和解决方法"></a>问题和解决方法</h1><p>迁移完成之后，直接编译可能会遇到一些问题，以下是我遇到的问题和解决方案</p>
+<h3 id="配置Android-NDK"><a href="#配置Android-NDK" class="headerlink" title="配置Android NDK"></a>配置Android NDK</h3><p>解决方法：在local.properties文件中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ndk.dir &#x3D; XXXX</span><br></pre></td></tr></table></figure>
+<h3 id="Error-12-0-Error-NDK-integration-is-deprecated-in-the-current-plugin"><a href="#Error-12-0-Error-NDK-integration-is-deprecated-in-the-current-plugin" class="headerlink" title="Error:(12, 0) Error: NDK integration is deprecated in the current plugin."></a>Error:(12, 0) Error: NDK integration is deprecated in the current plugin.</h3><p>解决方法：需要在gradle.properties文件中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.useDeprecatedNdk&#x3D;true</span><br></pre></td></tr></table></figure>
+<h3 id="Error-2-18-string-No-such-file-or-directory"><a href="#Error-2-18-string-No-such-file-or-directory" class="headerlink" title="Error:(2, 18) string: No such file or directory"></a>Error:(2, 18) string: No such file or directory</h3><p>解决方案：程序使用了C++标准库，需要在模块的build.gradle加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stl &quot;gnustl_static&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Error-Duplicate-files-copied-in-APK-META-INF-LICENSE-txt"><a href="#Error-Duplicate-files-copied-in-APK-META-INF-LICENSE-txt" class="headerlink" title="Error:Duplicate files copied in APK META-INF/LICENSE.txt"></a>Error:Duplicate files copied in APK META-INF/LICENSE.txt</h3><p>解决方案：在module的build.gradle中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    packagingOptions &#123;</span><br><span class="line">        exclude &#39;META-INF&#x2F;LICENSE.txt&#39;</span><br><span class="line">        exclude &#39;META-INF&#x2F;NOTICE.txt&#39;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Error-17-28-错误-程序包org-apache-http-util不存在"><a href="#Error-17-28-错误-程序包org-apache-http-util不存在" class="headerlink" title="Error:(17, 28) 错误: 程序包org.apache.http.util不存在"></a>Error:(17, 28) 错误: 程序包org.apache.http.util不存在</h3><p>解决方案：以前的项目使用了httpclient,而在Android 6.0已经把httpclient相关代码移除，如果需要使用，需要在module的build.gradle中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    useLibrary &#39;org.apache.http.legacy&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>迁移过程参考一下文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://developer.android.com/sdk/installing/migrate.html">官方文档：Importing Projects to Android Studio</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.alloyteam.com/2015/03/shi-yong-gradle-da-bao-zhi-ding-bao-ming-he-lei-di-jar/">使用gradle打包指定包名和类的jar</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>LinkZhang
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/" title="从Eclipse迁移到Android Studio，并打包指定文件到jar">https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/06/08/custom_domain/" rel="prev" title="Github Pages自定义域名">
+                  <i class="fa fa-chevron-left"></i> Github Pages自定义域名
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/09/12/android-gradle-config/" rel="next" title="Gradle常用配置">
+                  Gradle常用配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LinkZhang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">19k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">17 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

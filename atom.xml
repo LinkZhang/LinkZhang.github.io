@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LinkZhang&#39;s Website</title>
+  
+  
+  <link href="https://linkzhang.com/atom.xml" rel="self"/>
+  
+  <link href="https://linkzhang.com/"/>
+  <updated>2022-02-10T02:53:58.318Z</updated>
+  <id>https://linkzhang.com/</id>
+  
+  <author>
+    <name>LinkZhang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Travis CI来自动化更新网站</title>
+    <link href="https://linkzhang.com/2018/06/30/use-travis-ci-to-auto-update-post/"/>
+    <id>https://linkzhang.com/2018/06/30/use-travis-ci-to-auto-update-post/</id>
+    <published>2018-06-30T11:03:34.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;换了电脑以后，由于没有备份，需要把网站重新搭建一遍，为了吸取这个教训，研究一下如何做到多设备同时修改网站并且利用Travis CI工具自动化部署网站。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何自学编程和转行做程序员的一点建议</title>
+    <link href="https://linkzhang.com/2017/11/19/how-to-be-a-programer/"/>
+    <id>https://linkzhang.com/2017/11/19/how-to-be-a-programer/</id>
+    <published>2017-11-19T21:12:11.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;现在是移动互联网发展的大潮，其他各行各业的人都往IT行业涌来，我可以算是一个转行成功的程序员了，在知乎上也回答了一些相关问题，还是时不时收到私信咨询相关的问题，这里提供一些我的建议，以雍读者&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="https://linkzhang.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="日常" scheme="https://linkzhang.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新工作，新开始</title>
+    <link href="https://linkzhang.com/2017/10/01/new_work_new_lify/"/>
+    <id>https://linkzhang.com/2017/10/01/new_work_new_lify/</id>
+    <published>2017-10-01T10:13:22.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;前几天刚入职了一家新公司，算起来毕业五年我都换了五家公司了，让我来说说我的工作经历&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="https://linkzhang.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="日常" scheme="https://linkzhang.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用productFlavors创建不同版本的App</title>
+    <link href="https://linkzhang.com/2016/10/22/build-different-version-app-by-productFlavors/"/>
+    <id>https://linkzhang.com/2016/10/22/build-different-version-app-by-productFlavors/</id>
+    <published>2016-10-22T12:06:00.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近运营人员需要创建一个”壳版”应用进行渠道推广，即将当前的App更换名称、包名、图标、第三方服务等，成为一个新的应用。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Android" scheme="https://linkzhang.com/categories/Android/"/>
+    
+    
+    <category term="Android" scheme="https://linkzhang.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Studio 常用插件</title>
+    <link href="https://linkzhang.com/2016/10/02/android-studio-plugins/"/>
+    <id>https://linkzhang.com/2016/10/02/android-studio-plugins/</id>
+    <published>2016-10-02T20:26:00.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;升级Android Studio后，所有插件神奇的消失了，只好一个个重新安装，记录一下常用的插件，以做备份。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Android Studio" scheme="https://linkzhang.com/categories/Android-Studio/"/>
+    
+    
+    <category term="Android Studio" scheme="https://linkzhang.com/tags/Android-Studio/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gradle常用配置</title>
+    <link href="https://linkzhang.com/2016/09/12/android-gradle-config/"/>
+    <id>https://linkzhang.com/2016/09/12/android-gradle-config/</id>
+    <published>2016-09-12T21:22:00.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Android Studio使用Gradle进行构建，不仅可以非常方便的管理依赖，还可以自定义一些实用的功能,例如多渠道打包，自动签名apk等。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Android" scheme="https://linkzhang.com/categories/Android/"/>
+    
+    
+    <category term="Android" scheme="https://linkzhang.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从Eclipse迁移到Android Studio，并打包指定文件到jar</title>
+    <link href="https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/"/>
+    <id>https://linkzhang.com/2016/08/18/move_eclipse_project_to_android_studio/</id>
+    <published>2016-08-18T21:54:00.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;近期在维护一些老代码，是使用Eclipse开发的，我想用过Android Studio的人，再回去用Eclipse是无比难受的，所以趁着周末，赶紧把代码迁移到Android Studio。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Android" scheme="https://linkzhang.com/categories/Android/"/>
+    
+    
+    <category term="Android" scheme="https://linkzhang.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github Pages自定义域名</title>
+    <link href="https://linkzhang.com/2016/06/08/custom_domain/"/>
+    <id>https://linkzhang.com/2016/06/08/custom_domain/</id>
+    <published>2016-06-08T21:45:34.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;作为一个程序员，有个属于自己的个人网站，瞬间就高大上了许多，今天把自己英文名的域名&lt;code&gt;linkzhang.com&lt;/code&gt;买了下来，一次性买了2年，赶紧学习一下如何为github pages绑定自定义域名吧！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Next主题配置</title>
+    <link href="https://linkzhang.com/2016/03/11/hexo-theme-next-config/"/>
+    <id>https://linkzhang.com/2016/03/11/hexo-theme-next-config/</id>
+    <published>2016-03-11T19:43:34.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在&lt;a href=&quot;https://linkzhang.com/2016/03/10/hello-world/&quot;&gt;上篇文章&lt;/a&gt;,使用hexo搭建一个个人网站，这篇文章记录一下Next主题配置&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://linkzhang.com/2016/03/10/hello-world/"/>
+    <id>https://linkzhang.com/2016/03/10/hello-world/</id>
+    <published>2016-03-10T20:45:34.000Z</published>
+    <updated>2022-02-10T02:53:58.318Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;是一个快速、简洁且高效的博客框架。Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页。本文介绍如何在Mac上搭建Hexo，Linux用户也可以参考。网上关于Hexo的教程也比较多，但大都会让读者在一两个点上卡住。综合官网教程以及自己在安装过程中遇到的问题写下了本教程，一步一步来就可以无痛安装。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/categories/hexo/"/>
+    
+    
+    <category term="hexo" scheme="https://linkzhang.com/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>
