@@ -1,34 +1,42 @@
-name: CI
+name: Deploy Hexo
+
 on:
   push:
     branches:
       - hexo
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v1
-        with:
-          ref: hexo
-      - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
-        with:
-          version: ${{ matrix.node_version }}
-      - name: Setup hexo
-        env:
-          ACTION_DEPLOY_KEY: ${{ secrets.HEXO_DEPLOY_SECRET }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.email "605441326@qq.com"
-          git config --global user.name "linkzhang"
-          npm install hexo-cli -g
-          npm install
-      - name: Hexo deploy
-        run: |
-          hexo clean
-          hexo d
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: '14'
+
+
+    - name: Set git environment
+      env: 
+        # 1. Add this private key and title as DEPLOY_KEY in this repo -> settings/secrets
+        # 2. Add corresponding public key and named as any text to the github page repo -> settings/deploy keys
+        DEPLOY_KEY: ${{ secrets.HEXO_DEPLOY_SECRET }}
+        USERNAME: linkzhang
+        EMAIL: 605441326@qq.com
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        git config --global user.name "$USERNAME"
+        git config --global user.email "$EMAIL"
+    - name: Setup Hexo environment
+      run: |
+        npm install -g hexo-cli
+        npm install
+    - name: Deploy Hexo
+      run: |
+        hexo g
+        hexo d
